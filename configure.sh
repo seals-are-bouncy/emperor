@@ -11,6 +11,7 @@ if [ -e "build.sh" ]; then
 echo "You already have a build.sh script, if you want to regenerate it you have to remove it."
 else
 cat > build.sh << EOF
+#!/bin/env sh
 echo "AS kernel/boot.s"
 i686-elf-as kernel/boot.s -o out/boot.o
 echo "GCC kernel/kernel.c"
@@ -26,6 +27,7 @@ if [ -e "test.sh" ]; then
 echo "You already have a test.sh script, if you want to regenerate it you have to remove it."
 else
 cat > test.sh << EOF
+#!/bin/env sh
 echo "Starting QEMU"
 qemu-system-x86_64 --kernel emperor.bin
 EOF
