@@ -16,8 +16,10 @@ echo "AS kernel/boot.s"
 i686-elf-as kernel/boot.s -o out/boot.o
 echo "GCC kernel/kernel.c"
 i686-elf-gcc -c kernel/kernel.c -o out/kernel.o $CFLAGS
+echo "GCC kernel/vga.c"
+i686-elf-gcc -c kernel/vga.c -o out/vga.o $CFLAGS
 echo "Linking binary"
-i686-elf-gcc -T kernel/linker.ld -o emperor.bin -ffreestanding -O2 -nostdlib out/boot.o out/kernel.o -lgcc
+i686-elf-gcc -T kernel/linker.ld -o emperor.bin -ffreestanding -O2 -nostdlib out/vga.o out/boot.o out/kernel.o -lgcc
 EOF
 chmod +x build.sh
 echo "A build.sh script has been generated!"
