@@ -1,3 +1,5 @@
+include config.mk
+
 C_OBJS= out/vga.o \
 				out/kernel.o
 ASM_OBJS= out/boot.o
