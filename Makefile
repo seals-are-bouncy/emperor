@@ -1,10 +1,11 @@
 include config.mk
 
 C_OBJS= out/vga.o \
-				out/kernel.o
+				out/kernel.o \
+				out/printing.o
 ASM_OBJS= out/boot.o
 
-CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
+CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra -I./kernel/include
 
 all: emperor.bin
 
@@ -14,8 +15,15 @@ emperor.bin: ${ASM_OBJS} ${C_OBJS}
 out/boot.o: 
 	i686-elf-as kernel/boot.s -o out/boot.o
 
-out/%.o: kernel/%.c 
-	i686-elf-gcc -c $< -o $@ ${CFLAGS} 
+out/vga.o:
+	i686-elf-gcc -c ./kernel/src/screen/vga.c -o $@ ${CFLAGS} 
+out/kernel.o:
+	i686-elf-gcc -c ./kernel/src/kernel.c -o $@ ${CFLAGS} 
+out/printing.o:
+	i686-elf-gcc -c ./kernel/src/utils/printing.c -o $@ ${CFLAGS} 
+
+#out/%.o: kernel/src/%.c 
+#	i686-elf-gcc -c $< -o $@ ${CFLAGS} 
 
 clean:
 	rm ${C_OBJS}
