@@ -2,7 +2,7 @@ include config.mk
 
 C_OBJS= out/vga.o \
 				out/kernel.o \
-				out/printing.o
+				out/printing.o 
 ASM_OBJS= out/boot.o
 
 CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra -I./kernel/include
@@ -20,7 +20,7 @@ out/vga.o:
 out/kernel.o:
 	i686-elf-gcc -c ./kernel/src/kernel.c -o $@ ${CFLAGS} 
 out/printing.o:
-	i686-elf-gcc -c ./kernel/src/utils/printing.c -o $@ ${CFLAGS} 
+	i686-elf-gcc -c ./kernel/src/screen/printing.c -o $@ ${CFLAGS} 
 
 #out/%.o: kernel/src/%.c 
 #	i686-elf-gcc -c $< -o $@ ${CFLAGS} 
@@ -32,3 +32,7 @@ clean:
 
 test:
 	qemu-system-x86_64 -kernel emperor.bin
+
+test_full:
+	dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024
+

@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include "utils/printing.h"
+#include "screen/printing.h"
 
 /* Hardware text mode color constants. */
 enum vga_color {

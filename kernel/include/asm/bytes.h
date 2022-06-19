@@ -1,4 +1,9 @@
-#include "utils/printing.h"
+#if !defined(BYTES_H)
+#define BYTES_H
+
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
 static inline void outb(uint16_t port, uint8_t val)
 {
@@ -9,12 +14,4 @@ static inline void outb(uint16_t port, uint8_t val)
      * %1 expands to %dx because  port  is a uint16_t.  %w1 could be used if we had the port number a wider C type */
 }
 
-void update_cursor(int x, int y)
-{
-	uint16_t pos = y * 80 + x;
- 
-	outb(0x3D4, 0x0F);
-	outb(0x3D5, (uint8_t) (pos & 0xFF));
-	outb(0x3D4, 0x0E);
-	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
-}
+#endif
