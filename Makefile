@@ -9,6 +9,10 @@ CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra -I./kernel/include
 
 all: emperor.bin
 
+# Create Configuration file config.mk
+config.mk:
+	cp config.example.mk config.mk
+
 emperor.bin: ${ASM_OBJS} ${C_OBJS}
 	i686-elf-gcc -T kernel/linker.ld -o emperor.bin -ffreestanding -O2 -nostdlib ${C_OBJS} ${ASM_OBJS} -lgcc
 
